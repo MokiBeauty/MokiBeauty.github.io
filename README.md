@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#faf8f5">
+<title>LacquerElite — Russian Manicure Training</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--cream: #faf8f5;
+--white: #ffffff;
+--blush: #f0e8e0;
+--rose: #c9a08a;
+--rose-dark: #a0705a;
+--charcoal: #1e1e1e;
+--mid: #5a5a5a;
+--light: #9a9a9a;
+--border: #e8e0d8;
+--gold: #c8a96e;
+--gold-light: #e8d5b0;
+--radius: 2px;
+--nav-h: 72px;
+}
+html { scroll-behavior: smooth; }
+body {
+font-family: 'DM Sans', sans-serif;
+background: var(--cream);
+color: var(--charcoal);
+font-size: 16px;
+line-height: 1.7;
+overflow-x: hidden;
+}
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 2px; }
+/* ── NAV ── */
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+height: var(--nav-h);
+background: rgba(250,248,245,0.92);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border-bottom: 1px solid var(--border);
+display: flex; align-items: center; justify-content: space-between;
+padding: 0 40px;
+transition: box-shadow .3s;
+}
+nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
+.nav-logo {
+font-family: 'Cormorant Garamond', serif;
+font-size: 22px; font-weight: 400; letter-spacing: 0.08em;
+color: var(--charcoal); text-decoration: none;
+}
+.nav-logo span { color: var(--rose); }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+font-size: 13px; font-weight: 400; letter-spacing: 0.06em;
+text-transform: uppercase; color: var(--mid);
+text-decoration: none; transition: color .2s;
+}
+.nav-links a:hover { color: var(--rose); }
+.nav-cta {
+background: var(--charcoal); color: var(--white);
+font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+text-transform: uppercase; text-decoration: none;
+padding: 10px 24px; border-radius: var(--radius);
+transition: background .2s;
+}
+.nav-cta:hover { background: var(--rose-dark); }
+/* Hamburger */
+.hamburger {
+display: none; flex-direction: column; gap: 5px;
+cursor: pointer; background: none; border: none; padding: 4px;
+}
+.hamburger span {
+display: block; width: 24px; height: 1.5px;
+background: var(--charcoal); transition: all .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mobile-menu {
+display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+background: var(--white); border-bottom: 1px solid var(--border);
+padding: 24px 40px 32px; z-index: 999;
+flex-direction: column; gap: 24px;
+animation: slideDown .2s ease;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase;
+color: var(--charcoal); text-decoration: none;
+}
+@keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+/* ── HERO ── */
+#hero {
+min-height: 100vh;
+display: grid; grid-template-columns: 1fr 1fr;
+padding-top: var(--nav-h);
+overflow: hidden;
+}
+.hero-left {
+display: flex; flex-direction: column; justify-content: center;
+padding: 80px 60px 80px 80px;
+position: relative;
+}
+.hero-badge {
+display: inline-flex; align-items: center; gap: 8px;
+font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+color: var(--rose); margin-bottom: 28px;
+opacity: 0; animation: fadeUp .8s .2s forwards;
+}
+.hero-badge::before {
+content: ''; display: block; width: 28px; height: 1px; background: var(--rose);
+}
+.hero-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(48px, 5.5vw, 76px);
+font-weight: 300; line-height: 1.1;
+letter-spacing: -0.01em; color: var(--charcoal);
+margin-bottom: 28px;
+opacity: 0; animation: fadeUp .8s .35s forwards;
+}
+.hero-title em { font-style: italic; color: var(--rose); }
+.hero-sub {
+font-size: 16px; font-weight: 300; color: var(--mid);
+max-width: 420px; margin-bottom: 44px;
+opacity: 0; animation: fadeUp .8s .5s forwards;
+line-height: 1.8;
+}
+.hero-actions {
+display: flex; gap: 16px; flex-wrap: wrap;
+opacity: 0; animation: fadeUp .8s .65s forwards;
+}
+.btn-primary {
+background: var(--charcoal); color: var(--white);
+font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+text-transform: uppercase; text-decoration: none;
+padding: 14px 32px; border-radius: var(--radius);
+transition: background .2s; display: inline-block; border: none; cursor: pointer;
+}
+.btn-primary:hover { background: var(--rose-dark); }
+.btn-outline {
+background: transparent; color: var(--charcoal);
+font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+text-transform: uppercase; text-decoration: none;
+padding: 13px 32px; border: 1px solid var(--border);
+border-radius: var(--radius);
+transition: border-color .2s, color .2s; display: inline-block; cursor: pointer;
+}
+.btn-outline:hover { border-color: var(--rose); color: var(--rose); }
+.hero-stats {
+display: flex; gap: 40px; margin-top: 56px;
+opacity: 0; animation: fadeUp .8s .8s forwards;
+}
+.stat-num {
+font-family: 'Cormorant Garamond', serif;
+font-size: 36px; font-weight: 300; color: var(--charcoal); line-height: 1;
+}
+.stat-label { font-size: 12px; color: var(--light); letter-spacing: 0.05em; margin-top: 4px; }
+.hero-right {
+position: relative; background: var(--blush);
+overflow: hidden;
+}
+.hero-right::before {
+content: ''; position: absolute; inset: 0;
+background: linear-gradient(135deg, var(--blush) 0%, #e8d5c8 100%);
+}
+.hero-image-grid {
+position: absolute; inset: 0;
+display: grid; grid-template-columns: 1fr 1fr; gap: 3px;
+padding: 3px;
+}
+.hero-img-cell {
+background: var(--border);
+overflow: hidden; position: relative;
+}
+.hero-img-cell:nth-child(1) { grid-row: span 2; }
+.hero-img-cell::after {
+content: attr(data-label);
+position: absolute; bottom: 16px; left: 16px;
+font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+color: rgba(255,255,255,0.9);
+background: rgba(30,30,30,0.4);
+padding: 4px 10px; border-radius: 1px;
+backdrop-filter: blur(4px);
+}
+/* Nail art SVG placeholder visuals */
+.nail-visual {
+width: 100%; height: 100%; min-height: 200px;
+display: flex; align-items: center; justify-content: center;
+font-family: 'Cormorant Garamond', serif;
+font-size: 60px; color: var(--rose); opacity: 0.25;
+font-style: italic;
+}
+/* ── SECTION BASE ── */
+section { padding: 100px 80px; }
+.section-label {
+font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+color: var(--rose); margin-bottom: 16px;
+display: flex; align-items: center; gap: 12px;
+}
+.section-label::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--rose); }
+.section-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(36px, 4vw, 54px); font-weight: 300;
+line-height: 1.15; letter-spacing: -0.01em; color: var(--charcoal);
+}
+.section-title em { font-style: italic; color: var(--rose); }
+/* ── ABOUT ── */
+#about {
+display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+align-items: center; background: var(--white);
+}
+.about-img {
+aspect-ratio: 4/5;
+background: var(--blush);
+border-radius: var(--radius);
+position: relative; overflow: hidden;
+display: flex; align-items: center; justify-content: center;
+}
+.about-img-inner {
+width: 85%; height: 85%;
+border: 1px solid var(--gold-light);
+display: flex; align-items: center; justify-content: center;
+position: relative;
+}
+.about-nail-art {
+font-family: 'Cormorant Garamond', serif;
+font-size: 120px; font-style: italic;
+color: var(--rose); opacity: 0.15;
+}
+.about-badge {
+position: absolute; bottom: -20px; right: -20px;
+width: 120px; height: 120px; background: var(--charcoal);
+border-radius: 50%; display: flex; flex-direction: column;
+align-items: center; justify-content: center;
+color: var(--white);
+}
+.about-badge-num {
+font-family: 'Cormorant Garamond', serif;
+font-size: 28px; font-weight: 300; line-height: 1;
+}
+.about-badge-text { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-light); margin-top: 2px; text-align: center; }
+.about-content { padding-right: 20px; }
+.about-content p { font-size: 15px; color: var(--mid); margin-bottom: 20px; line-height: 1.85; font-weight: 300; }
+.about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+.about-feat {
+display: flex; align-items: flex-start; gap: 12px;
+}
+.feat-icon {
+width: 36px; height: 36px; background: var(--blush);
+border-radius: 50%; display: flex; align-items: center; justify-content: center;
+font-size: 16px; flex-shrink: 0;
+}
+.feat-text { font-size: 13px; color: var(--mid); font-weight: 300; }
+.feat-text strong { display: block; font-weight: 500; color: var(--charcoal); margin-bottom: 2px; font-size: 13px; }
+/* ── SERVICES ── */
+#services { background: var(--cream); }
+.services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 24px; }
+.services-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 2px;
+}
+.service-card {
+background: var(--white);
+padding: 40px 36px;
+position: relative; overflow: hidden;
+transition: transform .3s;
+}
+.service-card:hover { transform: translateY(-4px); }
+.service-card::before {
+content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+height: 3px; background: var(--rose);
+transform: scaleX(0); transition: transform .3s;
+transform-origin: left;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-num {
+font-family: 'Cormorant Garamond', serif;
+font-size: 64px; font-weight: 300; color: var(--border);
+line-height: 1; margin-bottom: 20px;
+}
+.service-name {
+font-family: 'Cormorant Garamond', serif;
+font-size: 24px; font-weight: 400; color: var(--charcoal);
+margin-bottom: 12px;
+}
+.service-desc { font-size: 13px; color: var(--light); line-height: 1.8; font-weight: 300; margin-bottom: 24px; }
+.service-price {
+font-family: 'Cormorant Garamond', serif;
+font-size: 20px; color: var(--rose); font-weight: 400;
+}
+.service-duration { font-size: 11px; color: var(--light); letter-spacing: 0.05em; margin-top: 4px; }
+/* ── GALLERY ── */
+#gallery { background: var(--charcoal); padding: 100px 80px; }
+#gallery .section-label { color: var(--gold); }
+#gallery .section-label::after { background: var(--gold); }
+#gallery .section-title { color: var(--white); }
+.gallery-grid {
+margin-top: 56px;
+display: grid;
+grid-template-columns: 2fr 1fr 1fr;
+grid-template-rows: auto auto;
+gap: 3px;
+}
+.gallery-item {
+background: #2a2a2a;
+overflow: hidden; position: relative;
+aspect-ratio: 1;
+display: flex; align-items: center; justify-content: center;
+transition: transform .4s;
+cursor: pointer;
+}
+.gallery-item:first-child { grid-row: span 2; aspect-ratio: auto; }
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+.gallery-item:hover { transform: scale(1.01); }
+.gallery-overlay {
+position: absolute; inset: 0;
+background: rgba(201,160,138,0.3);
+opacity: 0; transition: opacity .3s;
+display: flex; align-items: center; justify-content: center;
+}
+.gallery-overlay span {
+width: 48px; height: 48px; border: 1px solid rgba(255,255,255,0.6);
+border-radius: 50%; display: flex; align-items: center; justify-content: center;
+color: var(--white); font-size: 20px;
+}
+.gallery-nail {
+font-family: 'Cormorant Garamond', serif;
+font-size: clamp(60px, 8vw, 120px); font-style: italic;
+color: var(--rose); opacity: 0.12;
+pointer-events: none;
+}
+/* ── TESTIMONIALS ── */
+#testimonials { background: var(--white); }
+.testimonials-grid {
+margin-top: 56px;
+display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.testi-card {
+background: var(--cream); padding: 36px 32px;
+border-radius: var(--radius); position: relative;
+border: 1px solid var(--border);
+transition: box-shadow .3s;
+}
+.testi-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+.testi-quote {
+font-family: 'Cormorant Garamond', serif;
+font-size: 48px; color: var(--rose); line-height: 1;
+margin-bottom: 12px; font-style: normal;
+}
+.testi-text {
+font-size: 14px; color: var(--mid); line-height: 1.85;
+font-weight: 300; font-style: italic;
+margin-bottom: 24px;
+font-family: 'Cormorant Garamond', serif; font-size: 18px;
+}
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+width: 44px; height: 44px; border-radius: 50%;
+background: var(--blush); display: flex; align-items: center; justify-content: center;
+font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--rose);
+font-style: italic; flex-shrink: 0;
+}
+.testi-name { font-size: 13px; font-weight: 500; color: var(--charcoal); }
+.testi-role { font-size: 11px; color: var(--light); letter-spacing: 0.05em; }
+.testi-stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; margin-bottom: 16px; }
+/* ── BOOKING ── */
+#booking {
+background: var(--blush);
+display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+align-items: start;
+}
+.booking-info { padding-top: 8px; }
+.booking-info p { font-size: 15px; color: var(--mid); font-weight: 300; margin-top: 20px; margin-bottom: 32px; line-height: 1.85; }
+.contact-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.contact-list li { display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--mid); }
+.contact-icon {
+width: 40px; height: 40px; border-radius: 50%; background: var(--white);
+display: flex; align-items: center; justify-content: center;
+font-size: 17px; flex-shrink: 0;
+box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.booking-form {
+background: var(--white);
+padding: 48px 44px;
+border-radius: var(--radius);
+box-shadow: 0 8px 40px rgba(0,0,0,0.07);
+}
+.form-title {
+font-family: 'Cormorant Garamond', serif;
+font-size: 28px; font-weight: 400; margin-bottom: 32px; color: var(--charcoal);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { margin-bottom: 20px; }
+.form-group label {
+display: block; font-size: 11px; letter-spacing: 0.1em;
+text-transform: uppercase; color: var(--mid); margin-bottom: 8px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+width: 100%; padding: 12px 16px;
+border: 1px solid var(--border); border-radius: var(--radius);
+font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--charcoal);
+background: var(--cream);
+outline: none; transition: border-color .2s;
+-webkit-appearance: none; appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: var(--rose); background: var(--white); }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239a9a9a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+.form-submit { width: 100%; margin-top: 8px; font-size: 13px; padding: 15px; }
+.form-success {
+display: none; text-align: center; padding: 24px;
+background: var(--blush); border-radius: var(--radius); margin-top: 16px;
+}
+.form-success .success-icon { font-size: 36px; margin-bottom: 8px; }
+.form-success p { font-size: 14px; color: var(--mid); }
+/* ── FOOTER ── */
+footer {
+background: var(--charcoal); color: var(--white);
+padding: 60px 80px 40px;
+}
+.footer-top {
+display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+gap: 48px; margin-bottom: 48px;
+}
+.footer-brand .nav-logo { color: var(--white); display: block; margin-bottom: 16px; }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.8; font-weight: 300; max-width: 280px; }
+.footer-col h4 { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 20px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color .2s; }
+.footer-col a:hover { color: var(--white); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.3); }
+/* ── CHATBOT ── */
+.chat-fab {
+position: fixed; bottom: 28px; right: 28px; z-index: 9000;
+width: 58px; height: 58px; border-radius: 50%;
+background: var(--charcoal); color: var(--white);
+border: none; cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+transition: transform .3s, background .2s;
+font-size: 22px;
+}
+.chat-fab:hover { transform: scale(1.08); background: var(--rose-dark); }
+.chat-fab.active { background: var(--rose-dark); }
+.chat-notification {
+position: absolute; top: -4px; right: -4px;
+width: 18px; height: 18px; background: var(--rose);
+border-radius: 50%; border: 2px solid var(--white);
+font-size: 10px; color: var(--white); display: flex; align-items: center; justify-content: center;
+font-weight: 700;
+}
+.chat-window {
+position: fixed; bottom: 100px; right: 28px; z-index: 8999;
+width: 360px; max-width: calc(100vw - 40px);
+max-height: 560px;
+background: var(--white);
+border-radius: 12px;
+box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+display: flex; flex-direction: column;
+overflow: hidden;
+transform-origin: bottom right;
+transform: scale(0.85); opacity: 0;
+pointer-events: none;
+transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+}
+.chat-window.open {
+transform: scale(1); opacity: 1;
+pointer-events: all;
+}
+.chat-header {
+background: var(--charcoal); color: var(--white);
+padding: 18px 20px; display: flex; align-items: center; gap: 12px;
+flex-shrink: 0;
+}
+.chat-avatar {
+width: 38px; height: 38px; border-radius: 50%;
+background: var(--rose); display: flex; align-items: center; justify-content: center;
+font-size: 18px; flex-shrink: 0;
+}
+.chat-header-info { flex: 1; }
+.chat-header-name { font-size: 14px; font-weight: 500; }
+.chat-header-status { font-size: 11px; color: rgba(255,255,255,0.5); }
+.chat-header-status::before { content: '●'; color: #7dd3a8; margin-right: 5px; font-size: 8px; }
+.chat-close { background: none; border: none; color: rgba(255,255,255,0.6); cursor: pointer; font-size: 18px; padding: 4px; transition: color .2s; }
+.chat-close:hover { color: var(--white); }
+.chat-messages {
+flex: 1; overflow-y: auto; padding: 20px;
+display: flex; flex-direction: column; gap: 14px;
+min-height: 200px; max-height: 360px;
+}
+.chat-messages::-webkit-scrollbar { width: 3px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--border); }
+.chat-bubble {
+max-width: 80%; padding: 12px 16px;
+border-radius: 14px; font-size: 13px; line-height: 1.6;
+animation: bubbleIn .25s ease;
+}
+@keyframes bubbleIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+.chat-bubble.bot {
+background: var(--cream); color: var(--charcoal);
+border-bottom-left-radius: 4px; align-self: flex-start;
+}
+.chat-bubble.user {
+background: var(--charcoal); color: var(--white);
+border-bottom-right-radius: 4px; align-self: flex-end;
+}
+.chat-typing {
+display: flex; gap: 4px; align-items: center;
+padding: 12px 16px; background: var(--cream);
+border-radius: 14px; border-bottom-left-radius: 4px;
+align-self: flex-start; max-width: 70px;
+}
+.chat-typing span {
+width: 7px; height: 7px; background: var(--light);
+border-radius: 50%; animation: bounce .9s infinite;
+}
+.chat-typing span:nth-child(2) { animation-delay: .15s; }
+.chat-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes bounce { 0%,60%,100% { transform:translateY(0); } 30% { transform:translateY(-6px); } }
+.chat-suggestions {
+display: flex; flex-wrap: wrap; gap: 8px;
+padding: 0 20px 16px;
+}
+.chat-suggestion {
+font-size: 11px; padding: 6px 14px;
+border: 1px solid var(--border); border-radius: 20px;
+background: var(--white); color: var(--mid);
+cursor: pointer; transition: all .2s; white-space: nowrap;
+}
+.chat-suggestion:hover { border-color: var(--rose); color: var(--rose); background: var(--blush); }
+.chat-input-area {
+padding: 16px 20px;
+border-top: 1px solid var(--border);
+display: flex; gap: 10px; align-items: center;
+flex-shrink: 0;
+}
+#chat-input {
+flex: 1; border: 1px solid var(--border); border-radius: 24px;
+padding: 10px 16px; font-family: 'DM Sans', sans-serif;
+font-size: 13px; outline: none; transition: border-color .2s;
+color: var(--charcoal);
+}
+#chat-input:focus { border-color: var(--rose); }
+.chat-send {
+width: 38px; height: 38px; border-radius: 50%;
+background: var(--charcoal); color: var(--white);
+border: none; cursor: pointer; display: flex;
+align-items: center; justify-content: center;
+font-size: 16px; flex-shrink: 0;
+transition: background .2s;
+}
+.chat-send:hover { background: var(--rose-dark); }
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+from { opacity:0; transform:translateY(24px); }
+to { opacity:1; transform:translateY(0); }
+}
+.reveal {
+opacity: 0; transform: translateY(30px);
+transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+section { padding: 80px 48px; }
+#hero { grid-template-columns: 1fr; min-height: auto; }
+.hero-left { padding: 60px 48px; }
+.hero-right { min-height: 400px; }
+#about { grid-template-columns: 1fr; gap: 48px; }
+.about-img { max-width: 500px; }
+.about-content { padding-right: 0; }
+.services-grid { grid-template-columns: repeat(2, 1fr); }
+#booking { grid-template-columns: 1fr; }
+footer { padding: 60px 48px 40px; }
+.footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+.gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+.gallery-item:first-child { grid-row: span 1; }
+.testimonials-grid { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (max-width: 768px) {
+:root { --nav-h: 64px; }
+nav { padding: 0 24px; }
+.nav-links, .nav-cta { display: none; }
+.hamburger { display: flex; }
+section { padding: 72px 24px; }
+.hero-left { padding: 48px 24px; }
+.hero-stats { gap: 28px; flex-wrap: wrap; }
+.services-grid { grid-template-columns: 1fr; }
+.gallery-grid { grid-template-columns: 1fr 1fr; }
+.form-row { grid-template-columns: 1fr; }
+footer { padding: 48px 24px 32px; }
+.footer-top { grid-template-columns: 1fr; gap: 32px; }
+.footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+#gallery { padding: 72px 24px; }
+.about-features { grid-template-columns: 1fr; }
+.booking-form { padding: 32px 24px; }
+}
+@media (max-width: 480px) {
+.hero-actions { flex-direction: column; }
+.btn-primary, .btn-outline { text-align: center; }
+.services-header { flex-direction: column; align-items: flex-start; }
+.gallery-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- ══ NAV ══ -->
+<nav id="main-nav">
+<a href="#hero" class="nav-logo">Lacquer<span>Elite</span></a>
+<ul class="nav-links">
+<li><a href="#about">About</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#testimonials">Reviews</a></li>
+<li><a href="#booking">Contact</a></li>
+</ul>
+<a href="#booking" class="nav-cta">Book Training</a>
+<button class="hamburger" id="hamburger" aria-label="Menu">
+<span></span><span></span><span></span>
+</button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+<a href="#about" onclick="closeMobileMenu()">About</a>
+<a href="#services" onclick="closeMobileMenu()">Services</a>
+<a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+<a href="#testimonials" onclick="closeMobileMenu()">Reviews</a>
+<a href="#booking" onclick="closeMobileMenu()">Book Training</a>
+</div>
+<!-- ══ HERO ══ -->
+<section id="hero">
+<div class="hero-left">
+<div class="hero-badge">Russian Manicure Training</div>
+<h1 class="hero-title">
+Elevate Your<br>Nail <em>Artistry</em><br>to Precision
+</h1>
+<p class="hero-sub">
+Professional Russian manicure training brought directly to your salon. Master the technique that's redefining the nail industry — flawless cuticles, lasting results.
+</p>
+<div class="hero-actions">
+<a href="#booking" class="btn-primary">Book a Training Session</a>
+<a href="#services" class="btn-outline">View Programs</a>
+</div>
+<div class="hero-stats">
+<div>
+<div class="stat-num">200+</div>
+<div class="stat-label">Salons Trained</div>
+</div>
+<div>
+<div class="stat-num">98%</div>
+<div class="stat-label">Satisfaction Rate</div>
+</div>
+<div>
+<div class="stat-num">5★</div>
+<div class="stat-label">Average Rating</div>
+</div>
+</div>
+</div>
+<div class="hero-right">
+<div class="hero-image-grid">
+<div class="hero-img-cell" data-label="Russian Manicure">
+<div class="nail-visual">✦</div>
+</div>
+<div class="hero-img-cell" data-label="Technique">
+<div class="nail-visual" style="font-size:36px">◇</div>
+</div>
+<div class="hero-img-cell" data-label="Results">
+<div class="nail-visual" style="font-size:36px">◈</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══ ABOUT ══ -->
+<section id="about">
+<div class="about-img reveal">
+<div class="about-img-inner">
+<div class="about-nail-art">✦</div>
+<div class="about-badge">
+<div class="about-badge-num">8+</div>
+<div class="about-badge-text">Years Experience</div>
+</div>
+</div>
+</div>
+<div class="about-content reveal">
+<div class="section-label">About LacquerElite</div>
+<h2 class="section-title">Training That<br><em>Transforms</em> Your Salon</h2>
+<p style="margin-top:24px">We are a mobile Russian manicure education service, bringing expert-level training directly to nail salons. Our hands-on approach ensures every technician walks away with real, applicable skills.</p>
+<p>Russian manicure (also known as the dry manicure technique) delivers impeccably clean cuticles and a longer-lasting service — and it's quickly becoming the most in-demand technique clients are requesting.</p>
+<div class="about-features">
+<div class="about-feat">
+<div class="feat-icon">📍</div>
+<div class="feat-text"><strong>We Come to You</strong>Training at your salon, no travel for your team.</div>
+</div>
+<div class="about-feat">
+<div class="feat-icon">🎓</div>
+<div class="feat-text"><strong>Certified Training</strong>Receive a certificate upon completion.</div>
+</div>
+<div class="about-feat">
+<div class="feat-icon">👩‍🏫</div>
+<div class="feat-text"><strong>Group & 1-on-1</strong>Sessions for full teams or individual techs.</div>
+</div>
+<div class="about-feat">
+<div class="feat-icon">✨</div>
+<div class="feat-text"><strong>Post-Training Support</strong>Follow-up Q&A included for 30 days.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══ SERVICES ══ -->
+<section id="services">
+<div class="services-header reveal">
+<div>
+<div class="section-label">Training Programs</div>
+<h2 class="section-title">Choose Your<br><em>Path</em></h2>
+</div>
+<a href="#booking" class="btn-outline">Enquire Now</a>
+</div>
+<div class="services-grid">
+<div class="service-card reveal">
+<div class="service-num">01</div>
+<div class="service-name">Intro to Russian Manicure</div>
+<div class="service-desc">Perfect for beginners. Learn the foundational techniques of Russian manicure including correct e-file usage, cuticle removal, and nail prep.</div>
+<div class="service-price">From $199</div>
+<div class="service-duration">Half-day · Up to 4 technicians</div>
+</div>
+<div class="service-card reveal">
+<div class="service-num">02</div>
+<div class="service-name">Advanced Technique Masterclass</div>
+<div class="service-desc">For experienced nail techs ready to perfect their Russian manicure. Deep dive into speed, safety, cuticle anatomy, and flawless finishing.</div>
+<div class="service-price">From $349</div>
+<div class="service-duration">Full-day · Up to 4 technicians</div>
+</div>
+<div class="service-card reveal">
+<div class="service-num">03</div>
+<div class="service-name">Full Salon Certification</div>
+<div class="service-desc">Transform your entire team. Comprehensive two-day program covering all levels, from beginner to advanced, with individual assessments.</div>
+<div class="service-price">From $699</div>
+<div class="service-duration">2 Days · Unlimited staff</div>
+</div>
+<div class="service-card reveal">
+<div class="service-num">04</div>
+<div class="service-name">1-on-1 Private Coaching</div>
+<div class="service-desc">Personalized one-on-one training tailored to your specific skill level and goals. Ideal for salon owners looking to lead by example.</div>
+<div class="service-price">From $249</div>
+<div class="service-duration">3 Hours · 1 technician</div>
+</div>
+<div class="service-card reveal">
+<div class="service-num">05</div>
+<div class="service-name">Business Boost Package</div>
+<div class="service-desc">Training plus strategy. Learn how to market Russian manicure services, price them competitively, and attract a new clientele to your salon.</div>
+<div class="service-price">From $449</div>
+<div class="service-duration">Full-day · Up to 6 people</div>
+</div>
+<div class="service-card reveal">
+<div class="service-num">06</div>
+<div class="service-name">Refresher & Troubleshooting</div>
+<div class="service-desc">Already trained but having issues? A focused 2-hour session to identify problem areas and correct technique for consistent, beautiful results.</div>
+<div class="service-price">From $129</div>
+<div class="service-duration">2 Hours · Up to 2 technicians</div>
+</div>
+</div>
+</section>
+<!-- ══ GALLERY ══ -->
+<section id="gallery">
+<div class="reveal">
+<div class="section-label">Work & Results</div>
+<h2 class="section-title">The Art of <em>Precision</em></h2>
+</div>
+<div class="gallery-grid">
+<div class="gallery-item reveal">
+<div class="gallery-nail" style="font-size:160px">✦</div>
+<div class="gallery-overlay"><span>+</span></div>
+</div>
+<div class="gallery-item reveal">
+<div class="gallery-nail">◇</div>
+<div class="gallery-overlay"><span>+</span></div>
+</div>
+<div class="gallery-item reveal">
+<div class="gallery-nail">◈</div>
+<div class="gallery-overlay"><span>+</span></div>
+</div>
+<div class="gallery-item reveal">
+<div class="gallery-nail">✧</div>
+<div class="gallery-overlay"><span>+</span></div>
+</div>
+<div class="gallery-item reveal">
+<div class="gallery-nail">◉</div>
+<div class="gallery-overlay"><span>+</span></div>
+</div>
+</div>
+<p style="color:rgba(255,255,255,0.3); font-size:12px; text-align:center; margin-top:20px; letter-spacing:0.05em;">Replace placeholder cells with your real photos to complete the gallery</p>
+</section>
+<!-- ══ TESTIMONIALS ══ -->
+<section id="testimonials">
+<div class="reveal" style="text-align:center; max-width:560px; margin:0 auto 56px;">
+<div class="section-label" style="justify-content:center;">What Salons Say</div>
+<h2 class="section-title">Results That <em>Speak</em></h2>
+</div>
+<div class="testimonials-grid">
+<div class="testi-card reveal">
+<div class="testi-stars">★★★★★</div>
+<div class="testi-quote">"</div>
+<div class="testi-text">Since training with LacquerElite, our Russian manicure bookings tripled in just two months. Our clients absolutely love the results — clean cuticles every single time.</div>
+<div class="testi-author">
+<div class="testi-avatar">M</div>
+<div>
+<div class="testi-name">Maria Chen</div>
+<div class="testi-role">Owner, Blush Nail Studio</div>
+</div>
+</div>
+</div>
+<div class="testi-card reveal">
+<div class="testi-stars">★★★★★</div>
+<div class="testi-quote">"</div>
+<div class="testi-text">The trainer came to our salon, worked with all 5 of us, and by the end of the day we were all doing Russian manicures confidently. Worth every single penny.</div>
+<div class="testi-author">
+<div class="testi-avatar">T</div>
+<div>
+<div class="testi-name">Tara Williams</div>
+<div class="testi-role">Head Technician, The Nail Bar</div>
+</div>
+</div>
+</div>
+<div class="testi-card reveal">
+<div class="testi-stars">★★★★★</div>
+<div class="testi-quote">"</div>
+<div class="testi-text">I had tried learning from YouTube for months. One afternoon with this training and everything clicked. The hands-on instruction is absolutely invaluable.</div>
+<div class="testi-author">
+<div class="testi-avatar">S</div>
+<div>
+<div class="testi-name">Sofia Reyes</div>
+<div class="testi-role">Independent Nail Technician</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══ BOOKING ══ -->
+<section id="booking">
+<div class="booking-info reveal">
+<div class="section-label">Get In Touch</div>
+<h2 class="section-title">Book Your<br><em>Training</em> Day</h2>
+<p>Ready to bring Russian manicure expertise to your salon? Fill out the form and we'll be in touch within 24 hours to confirm your session date and details.</p>
+<ul class="contact-list">
+<li><span class="contact-icon">📧</span> hello@lacquarelite.com</li>
+<li><span class="contact-icon">📱</span> (555) 123-4567</li>
+<li><span class="contact-icon">📍</span> Mobile — We come to your salon</li>
+<li><span class="contact-icon">🕐</span> Mon–Sat, 9am–7pm</li>
+</ul>
+</div>
+<div class="booking-form reveal">
+<div class="form-title">Request a Session</div>
+<div class="form-row">
+<div class="form-group">
+<label>First Name</label>
+<input type="text" id="fname" placeholder="Jane">
+</div>
+<div class="form-group">
+<label>Last Name</label>
+<input type="text" id="lname" placeholder="Smith">
+</div>
+</div>
+<div class="form-group">
+<label>Salon Name</label>
+<input type="text" id="salon" placeholder="Your Salon Name">
+</div>
+<div class="form-group">
+<label>Email Address</label>
+<input type="email" id="email" placeholder="jane@yoursalon.com">
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Phone Number</label>
+<input type="tel" id="phone" placeholder="(555) 000-0000">
+</div>
+<div class="form-group">
+<label>Number of Technicians</label>
+<select id="techs">
+<option value="">Select...</option>
+<option>1</option>
+<option>2–3</option>
+<option>4–6</option>
+<option>7+</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label>Training Program</label>
+<select id="program">
+<option value="">Select a program...</option>
+<option>Intro to Russian Manicure</option>
+<option>Advanced Technique Masterclass</option>
+<option>Full Salon Certification</option>
+<option>1-on-1 Private Coaching</option>
+<option>Business Boost Package</option>
+<option>Refresher & Troubleshooting</option>
+</select>
+</div>
+<div class="form-group">
+<label>Preferred Date</label>
+<input type="date" id="date">
+</div>
+<div class="form-group">
+<label>Anything else we should know?</label>
+<textarea id="notes" placeholder="Experience level, special requests, location..."></textarea>
+</div>
+<button class="btn-primary form-submit" onclick="submitForm()">Send Request →</button>
+<div class="form-success" id="form-success">
+<div class="success-icon">✨</div>
+<p><strong>Request sent!</strong> We'll be in touch within 24 hours.</p>
+</div>
+</div>
+</section>
+<!-- ══ FOOTER ══ -->
+<footer>
+<div class="footer-top">
+<div class="footer-brand">
+<a class="nav-logo" href="#hero">Lacquer<span style="color:var(--rose)">Elite</span></a>
+<p>Professional Russian manicure training delivered directly to your salon. Elevating nail technicians across the country, one salon at a time.</p>
+</div>
+<div class="footer-col">
+<h4>Programs</h4>
+<ul>
+<li><a href="#services">Intro Course</a></li>
+<li><a href="#services">Advanced Class</a></li>
+<li><a href="#services">Full Certification</a></li>
+<li><a href="#services">Private Coaching</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Company</h4>
+<ul>
+<li><a href="#about">About</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#testimonials">Reviews</a></li>
+<li><a href="#booking">Contact</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<h4>Follow Us</h4>
+<ul>
+<li><a href="#">Instagram</a></li>
+<li><a href="#">TikTok</a></li>
+<li><a href="#">Facebook</a></li>
+<li><a href="#">YouTube</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 LacquerElite. All rights reserved.</p>
+<p>Made with ♡ for nail professionals</p>
+</div>
+</footer>
+<!-- ══ CHATBOT ══ -->
+<button class="chat-fab" id="chat-fab" onclick="toggleChat()" aria-label="Open chat">
+<span id="chat-fab-icon">💬</span>
+<div class="chat-notification" id="chat-notif">1</div>
+</button>
+<div class="chat-window" id="chat-window">
+<div class="chat-header">
+<div class="chat-avatar">✦</div>
+<div class="chat-header-info">
+<div class="chat-header-name">LacquerElite Assistant</div>
+<div class="chat-header-status">Online now</div>
+</div>
+<button class="chat-close" onclick="toggleChat()">✕</button>
+</div>
+<div class="chat-messages" id="chat-messages"></div>
+<div class="chat-suggestions" id="chat-suggestions">
+<button class="chat-suggestion" onclick="sendSuggestion('What is Russian manicure?')">What is Russian manicure?</button>
+<button class="chat-suggestion" onclick="sendSuggestion('How much does training cost?')">Pricing</button>
+<button class="chat-suggestion" onclick="sendSuggestion('How do I book a session?')">Book a session</button>
+</div>
+<div class="chat-input-area">
+<input type="text" id="chat-input" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendMessage()">
+<button class="chat-send" onclick="sendMessage()">➤</button>
+</div>
+</div>
+<script>
+// ── NAV scroll effect ──
+window.addEventListener('scroll', () => {
+document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+// ── Hamburger menu ──
+function closeMobileMenu() {
+document.getElementById('mobile-menu').classList.remove('open');
+document.getElementById('hamburger').classList.remove('open');
+}
+document.getElementById('hamburger').addEventListener('click', function() {
+this.classList.toggle('open');
+document.getElementById('mobile-menu').classList.toggle('open');
+});
+// ── Scroll reveal ──
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+entries.forEach((e, i) => {
+if (e.isIntersecting) {
+setTimeout(() => e.target.classList.add('visible'), i * 80);
+observer.unobserve(e.target);
+}
+});
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+// ── Booking form ──
+function submitForm() {
+const fields = ['fname','lname','salon','email'];
+let valid = true;
+fields.forEach(id => {
+const el = document.getElementById(id);
+if (!el.value.trim()) {
+el.style.borderColor = '#e07070';
+valid = false;
+setTimeout(() => el.style.borderColor = '', 2000);
+}
+});
+if (!valid) return;
+document.querySelector('.form-submit').textContent = 'Sending…';
+setTimeout(() => {
+document.querySelector('.form-submit').style.display = 'none';
+document.getElementById('form-success').style.display = 'block';
+}, 1200);
+}
+// ── CHATBOT ──
+let chatOpen = false;
+let chatHistory = [];
+let awaitingResponse = false;
+const SYSTEM_PROMPT = `You are a friendly, knowledgeable assistant for LacquerElite, a professional Russian manicure training business. You help nail salon owners and technicians learn about the training programs, pricing, and how to book sessions.
+Key info:
+- Business: LacquerElite — mobile Russian manicure training (trainer comes to the salon)
+- Services: Intro Course ($199, half-day, up to 4 techs), Advanced Masterclass ($349, full-day, up to 4 techs), Full Salon Certification ($699, 2 days, unlimited staff), 1-on-1 Coaching ($249, 3hrs), Business Boost Package ($449, full-day), Refresher Session ($129, 2hrs)
+- Russian manicure = dry manicure technique using e-file to clean cuticles — cleaner, longer-lasting results
+- Booking: fill out the form on the website or email hello@lacquarelite.com or call (555) 123-4567
+- Training includes post-session support for 30 days and a certificate on completion
+- Available Mon–Sat 9am–7pm
+Keep responses concise, warm, and professional. Use light emojis occasionally. If asked about booking, direct to the form on the page or contact details.`;
+function toggleChat() {
+chatOpen = !chatOpen;
+const win = document.getElementById('chat-window');
+const fab = document.getElementById('chat-fab');
+const notif = document.getElementById('chat-notif');
+win.classList.toggle('open', chatOpen);
+fab.classList.toggle('active', chatOpen);
+notif.style.display = 'none';
+if (chatOpen && chatHistory.length === 0) {
+setTimeout(() => addBotMessage("Hi there! ✨ Welcome to LacquerElite. I'm here to help with questions about our Russian manicure training programs, pricing, or booking. What can I help you with today?"), 300);
+}
+}
+function addBotMessage(text) {
+const msgs = document.getElementById('chat-messages');
+const bubble = document.createElement('div');
+bubble.className = 'chat-bubble bot';
+bubble.textContent = text;
+msgs.appendChild(bubble);
+msgs.scrollTop = msgs.scrollHeight;
+chatHistory.push({ role: 'assistant', content: text });
+}
+function addUserMessage(text) {
+const msgs = document.getElementById('chat-messages');
+const bubble = document.createElement('div');
+bubble.className = 'chat-bubble user';
+bubble.textContent = text;
+msgs.appendChild(bubble);
+msgs.scrollTop = msgs.scrollHeight;
+chatHistory.push({ role: 'user', content: text });
+}
+function showTyping() {
+const msgs = document.getElementById('chat-messages');
+const div = document.createElement('div');
+div.className = 'chat-typing'; div.id = 'typing-indicator';
+div.innerHTML = '<span></span><span></span><span></span>';
+msgs.appendChild(div);
+msgs.scrollTop = msgs.scrollHeight;
+}
+function hideTyping() {
+const el = document.getElementById('typing-indicator');
+if (el) el.remove();
+}
+function hideSuggestions() {
+document.getElementById('chat-suggestions').style.display = 'none';
+}
+async function sendSuggestion(text) {
+hideSuggestions();
+await sendText(text);
+}
+async function sendMessage() {
+const input = document.getElementById('chat-input');
+const text = input.value.trim();
+if (!text || awaitingResponse) return;
+input.value = '';
+hideSuggestions();
+await sendText(text);
+}
+async function sendText(text) {
+if (awaitingResponse) return;
+awaitingResponse = true;
+addUserMessage(text);
+showTyping();
+try {
+const response = await fetch('https://api.anthropic.com/v1/messages', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+model: 'claude-sonnet-4-20250514',
+max_tokens: 1000,
+system: SYSTEM_PROMPT,
+messages: chatHistory.filter(m => m.role === 'user' || m.role === 'assistant')
+})
+});
+const data = await response.json();
+hideTyping();
+const reply = data.content?.[0]?.text || "I'm sorry, I had trouble connecting. Please try again or contact us directly at hello@lacquarelite.com.";
+addBotMessage(reply);
+} catch (err) {
+hideTyping();
+addBotMessage("Sorry, I'm having trouble right now. Please reach us at hello@lacquarelite.com or (555) 123-4567. 💌");
+}
+awaitingResponse = false;
+}
+</script>
+</body>
+</html>
